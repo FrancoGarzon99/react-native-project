@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { View, StyleSheet, Text, Button, Alert } from 'react-native';
 
 interface Props {
-  activeStateSearch: () => void
-  activeStateScanProduct: () => void
+  activeStateSearch: () => void;
+  activeStateScanProduct: () => void;
 }
 
 const MenuBar = ({ activeStateSearch, activeStateScanProduct }: Props) => {
@@ -11,27 +11,27 @@ const MenuBar = ({ activeStateSearch, activeStateScanProduct }: Props) => {
     <View>
       <View style={styles.menubar}>
         <View style={styles.menuContent}>
-          <Button title="Buscar Producto" onPress={activeStateScanProduct} />
-          <Button title="Nuevo Producto" onPress={activeStateSearch} />
-          <Button title="Lista de compra" onPress={activeStateSearch} />
+          <Button title="Search" onPress={activeStateScanProduct} />
+          <Button title="New" onPress={activeStateSearch} />
+          <Button title="Products" onPress={activeStateSearch} />
           <Button title="Admin" onPress={activeStateSearch} />
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   menubar: {
-    marginTop: 20,
     width: "100%",
-    height: 80
+    height: 50
   },
   menuContent: {
     flex: 1,
+    backgroundColor: "red",
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around"
+    alignItems: "stretch",
+    justifyContent: "space-evenly"
   },
 });
-export default MenuBar
+export default MenuBar;
