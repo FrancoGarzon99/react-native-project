@@ -4,21 +4,26 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home/Home';
 import ProductList from './screens/ProductsList/ProductList';
 import Admin from './screens/Admin/Admin';
-import BuyList from './screens/BuyList/BuyList';
+import NewProduct from './screens/NewProduct/NewProduct';
+import ProductSearch from './screens/ProductSearch/ProductSearch';
+import { NativeBaseProvider } from 'native-base';
 
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="inicio">
-        <Stack.Screen name="Inicio" component={Home} />
-        <Stack.Screen name="Lista de Productos" component={ProductList} />
-        <Stack.Screen name="Admin" component={Admin} />
-        <Stack.Screen name="Lista de Compra" component={BuyList} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="inicio">
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Lista de Productos" component={ProductList} />
+          <Stack.Screen name="Admin" component={Admin} />
+          <Stack.Screen name="Nuevo Producto" component={NewProduct} />
+          <Stack.Screen name="Buscar Productos" component={ProductSearch} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };
 

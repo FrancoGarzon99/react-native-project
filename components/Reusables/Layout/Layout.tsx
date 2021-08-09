@@ -1,18 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import MenuBar from '../MenuBar/MenuBar';
+import MenuBar, { NavigationType } from '../MenuBar/MenuBar';
 
 interface Props {
   children: React.ReactNode;
+  propsNavigation: NavigationType;
 }
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, propsNavigation }: Props) => {
   return (
     <View style={stylesLayout.container}>
       {children}
       <View style={stylesLayout.MenuBarPosition}>
         <View style={stylesLayout.MenuContainer}>
-          <MenuBar activeStateScanProduct={() => { }} activeStateSearch={() => { }} />
+          <MenuBar activeStateScanProduct={() => { }} activeStateSearch={() => { }} propsNavigation={propsNavigation} />
         </View>
       </View>
     </View>

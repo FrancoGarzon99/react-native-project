@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import MenuBar from './components/MenuBar/MenuBar';
+import { Dispatch, SetStateAction } from 'hoist-non-react-statics/node_modules/@types/react';
 
-const ScannActiveComponent = () => {
+interface ScannActiveComponentProps {
+  ShowHideScanner: boolean;
+  returnScanned: boolean;
+  setReturnScanned: Dispatch<SetStateAction<boolean>>;
+  setDataStringScanner: Dispatch<SetStateAction<{ type: string, data: string; } | undefined>>;
+
+}
+const ScannActiveComponent = ({ ShowHideScanner, returnScanned, setReturnScanned, setDataStringScanner }: ScannActiveComponentProps) => {
   const [hasPermission, setHasPermission] = useState<null | boolean>(null);
-  const [scanned, setScanned] = useState<boolean>(false);
-  const [scannerActive, setScannerActive] = useState<boolean>(false);
-  const [scanProductState, setScanProductState] = useState<string>("inactive");
-  const [scanSearchState, setScanSearchState] = useState<string>("inactive");
-  const [dataScanned, setDataScanned] = useState<{ type: string, data: string } | undefined>();
+  const [dataScanned, setDataScanned] = useState<{ type: string, data: string; } | undefined>();
 
   useEffect(() => {
     (async () => {
@@ -20,59 +23,30 @@ const ScannActiveComponent = () => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }: any) => {
-    setDataScanned({ type: type, data: data })
-    setScannerActive(false)
+    setDataScanned({ type: type, data: data });
+    setDataStringScanner({ type: type, data: data });
+    setReturnScanned(true);
   };
 
-  // if (hasPermission === null) {
-  //   return Alert.alert("Necesitamos que actives la camara para poder escanear/buscar los productos");
-  // }
-  // if (hasPermission === false) {
-  //   return Alert.alert("Necesitamos los permisos de la camara para poder escanear/buscar los productos");
-  // }
 
-  const activeStateScanProduct = () => {
-    setScannerActive(true)
-    setScanProductState("active")
-    setDataScanned({ type: "", data: "" })
-  }
-  const activeStateSearch = () => {
-    setScannerActive(true)
-    setScanSearchState("active")
-    setDataScanned({ type: "", data: "" })
-  }
   return (
     <View>
-      <StatusBar />
-      <MenuBar activeStateScanProduct={activeStateScanProduct} activeStateSearch={activeStateSearch} />
-      <View style={styles.container}>
-
-        {/* {scannerActive && <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />} */}
-        <StatusBar style="auto" />
-        {scannerActive === true && <Button title="Cancelar" onPress={() => {
-          setScannerActive(false)
-          scanProductState === "active" && setScanProductState("inactive")
-          scanSearchState === "active" && setScanSearchState("inactive")
-        }} />}
-
+      <View style={styles.containerScann}>
+        {ShowHideScanner && hasPermission === true ?
+          <BarCodeScanner
+            onBarCodeScanned={returnScanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          /> : <Text>Necesitamos acceso a tu camara, para escanear los productos</Text>}
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  containerScann: {
     flex: 1,
-    marginTop: 10,
-    padding: 20,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-  title: {
-    fontSize: 20
+    width: "100%",
+    height: 400,
   }
 });
 export default ScannActiveComponent;
