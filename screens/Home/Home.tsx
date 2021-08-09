@@ -1,14 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../components/Reusables/Layout/Layout';
+import { NavigationType } from '../../components/Reusables/MenuBar/MenuBar';
 
-interface Props {
 
-}
-
-const Home = (props: Props) => {
+const Home = (props: NavigationType) => {
   return (
-    <Layout>
+    <Layout propsNavigation={props}>
       <Text>Hola soy la home</Text>
     </Layout>
   );

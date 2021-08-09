@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { View, Text } from 'react-native';
 
 interface Props {
@@ -8,9 +8,9 @@ interface Props {
 const ProductList = (props: Props) => {
   return (
     <View>
-      <Text>Lista de productos</Text>
+      <Text>Lista de productos en nuestra DB</Text>
     </View>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
