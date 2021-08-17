@@ -1,5 +1,6 @@
+import { Divider, IconButton, Image } from 'native-base';
 import React from 'react';
-import { View, StyleSheet, Text, Button, Alert } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 
 export type NavigationType = {
   navigation: {
@@ -27,21 +28,38 @@ export type NavigationType = {
   };
 };
 
-interface Props {
+interface MenuBarProps {
   activeStateSearch: () => void;
   activeStateScanProduct: () => void;
   propsNavigation: NavigationType;
 }
 
-const MenuBar = ({ activeStateSearch, activeStateScanProduct, propsNavigation }: Props) => {
+
+const MenuBar = ({ activeStateSearch, activeStateScanProduct, propsNavigation }: MenuBarProps) => {
   return (
     <View>
+      <Divider />
       <View style={styles.menubar}>
         <View style={styles.menuContent}>
-          <Button title="Search" onPress={() => propsNavigation.navigation.navigate('Buscar Productos')} />
-          <Button title="New" onPress={() => propsNavigation.navigation.navigate('Nuevo Producto')} />
-          <Button title="Products" onPress={() => propsNavigation.navigation.navigate('Lista de Productos')} />
-          <Button title="Admin" onPress={() => propsNavigation.navigation.navigate('Admin')} />
+          <IconButton
+            icon={<Image source={require("../../../assets/IconMenuBar/loupe.png")} h="40px" w="40px" alt="image base" />}
+            onPress={() => propsNavigation.navigation.navigate('Buscar Productos')}
+          />
+
+          <IconButton
+            icon={<Image source={require("../../../assets/IconMenuBar/add.png")} alt="image base" h="40px" w="40px" />
+            }
+            onPress={() => propsNavigation.navigation.navigate('Nuevo Producto')}
+          />
+          <IconButton
+            icon={<Image source={require("../../../assets/IconMenuBar/clipboard.png")} alt="image base" h="40px" w="40px" />
+            }
+            onPress={() => propsNavigation.navigation.navigate('Lista de Productos')}
+          />
+          <IconButton
+            icon={<Image source={require("../../../assets/IconMenuBar/settings.png")} h="40px" w="40px" alt="image base" />}
+            onPress={() => propsNavigation.navigation.navigate('Admin')}
+          />
         </View>
       </View>
     </View>
@@ -51,13 +69,12 @@ const MenuBar = ({ activeStateSearch, activeStateScanProduct, propsNavigation }:
 const styles = StyleSheet.create({
   menubar: {
     width: "100%",
-    height: 50
+    height: 80
   },
   menuContent: {
     flex: 1,
-    backgroundColor: "red",
     flexDirection: "row",
-    alignItems: "stretch",
+    alignItems: "center",
     justifyContent: "space-evenly"
   },
 });

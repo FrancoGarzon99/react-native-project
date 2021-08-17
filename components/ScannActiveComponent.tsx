@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Dispatch, SetStateAction } from 'hoist-non-react-statics/node_modules/@types/react';
+import { useToast } from 'native-base';
 
 interface ScannActiveComponentProps {
   ShowHideScanner: boolean;
   returnScanned: boolean;
   setReturnScanned: Dispatch<SetStateAction<boolean>>;
   setDataStringScanner: Dispatch<SetStateAction<{ type: string, data: string; } | undefined>>;
-
+  setShowHideScanner: Dispatch<SetStateAction<boolean>>;
 }
-const ScannActiveComponent = ({ ShowHideScanner, returnScanned, setReturnScanned, setDataStringScanner }: ScannActiveComponentProps) => {
+const ScannActiveComponent = ({ ShowHideScanner, returnScanned, setReturnScanned, setDataStringScanner, setShowHideScanner }: ScannActiveComponentProps) => {
+
+
+  const toast = useToast();
   const [hasPermission, setHasPermission] = useState<null | boolean>(null);
   const [dataScanned, setDataScanned] = useState<{ type: string, data: string; } | undefined>();
 
@@ -25,7 +28,14 @@ const ScannActiveComponent = ({ ShowHideScanner, returnScanned, setReturnScanned
   const handleBarCodeScanned = ({ type, data }: any) => {
     setDataScanned({ type: type, data: data });
     setDataStringScanner({ type: type, data: data });
+    setShowHideScanner(false);
     setReturnScanned(true);
+    toast.show({
+      title: "Producto Escaneado!",
+      status: "success",
+      description: "¡Completa los siguientes campos!",
+      isClosable: false
+    });
   };
 
 

@@ -6,23 +6,26 @@ import firebase from '../../../DataBase/Firebase';
 import { Dispatch, SetStateAction } from 'hoist-non-react-statics/node_modules/@types/react';
 
 type FormData = {
-  codigo: string;
-  marca: string;
-  nombre: string;
-  tipo: string;
-  cantidad: string;
+  code: string;
+  brand: string;
+  name: string;
+  type: string;
+  quantity: string;
+  price: string;
+
 };
 
 interface FormNewProductProps {
   dataStringScanner: { type: string, data: string; } | undefined;
   setShowHideScanner: Dispatch<SetStateAction<boolean>>;
+  fnNavigation: any;
 }
 
-const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProductProps) => {
+const FormNewProduct = ({ dataStringScanner, setShowHideScanner, fnNavigation }: FormNewProductProps) => {
 
   const { control, register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>({
     defaultValues: {
-      codigo: dataStringScanner?.data
+      code: dataStringScanner?.data
     }
   });
 
@@ -30,7 +33,8 @@ const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProduc
     await firebase.db.collection("products").add(data);
   };
 
-  const onSubmit = handleSubmit(data => NewProduct(data));
+  const onSubmit = handleSubmit(data => NewProduct(data).then(res => fnNavigation.props.navigation.replace('Lista de Productos')));
+
   return (
     <View style={stylesFormNewProduct.containerForm}>
       {/* CODIGO */}
@@ -41,20 +45,19 @@ const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProduc
           {dataStringScanner?.data ? (
             <Controller
               render={({ field }) => <Input isReadOnly {...field} />}
-              name="codigo"
+              name="code"
               control={control}
               defaultValue={dataStringScanner?.data}
 
             />
           ) : (
             <Button onPress={() => setShowHideScanner(true)} title="Escanear" />
-
           )
           }
         </View>
-        {errors.codigo && <Text style={stylesFormNewProduct.textErrorForm}>Codigo es requerido</Text>}
+        {errors.code && <Text style={stylesFormNewProduct.textErrorForm}>Codigo es requerido</Text>}
       </View>
-      {/* MARCA */}
+      {/* PRECIO */}
       <View style={stylesFormNewProduct.inputGroup}>
         <Controller
           control={control}
@@ -63,42 +66,19 @@ const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProduc
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <>
-              <Text style={stylesFormNewProduct.textForm}>Marca:</Text>
+              <Text style={stylesFormNewProduct.textForm}>Precio</Text>
               <Input
-                size="lg"
                 onBlur={onBlur}
+                size="lg"
                 onChangeText={onChange}
                 value={value}
               />
             </>
           )}
-          name="marca"
+          name="price"
           defaultValue=""
         />
-        {errors.marca && <Text style={stylesFormNewProduct.textErrorForm}>Marca es requerido</Text>}
-      </View>
-      {/* TIPO */}
-      <View style={stylesFormNewProduct.inputGroup}>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text style={stylesFormNewProduct.textForm}>Tipo:</Text>
-              <Input
-                size="lg"
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="tipo"
-          defaultValue=""
-        />
-        {errors.tipo && <Text style={stylesFormNewProduct.textErrorForm}>tipo es requerido</Text>}
+        {errors.price && <Text style={stylesFormNewProduct.textErrorForm}>Precio es requerido</Text>}
       </View>
       {/* NOMBRE */}
       <View style={stylesFormNewProduct.inputGroup}>
@@ -118,10 +98,56 @@ const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProduc
               />
             </>
           )}
-          name="nombre"
+          name="name"
           defaultValue=""
         />
-        {errors.nombre && <Text style={stylesFormNewProduct.textErrorForm}>Nombre es requerido</Text>}
+        {errors.name && <Text style={stylesFormNewProduct.textErrorForm}>Nombre es requerido</Text>}
+      </View>
+      {/* MARCA */}
+      <View style={stylesFormNewProduct.inputGroup}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Text style={stylesFormNewProduct.textForm}>Marca:</Text>
+              <Input
+                size="lg"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            </>
+          )}
+          name="brand"
+          defaultValue=""
+        />
+        {errors.brand && <Text style={stylesFormNewProduct.textErrorForm}>Marca es requerido</Text>}
+      </View>
+      {/* TIPO */}
+      <View style={stylesFormNewProduct.inputGroup}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Text style={stylesFormNewProduct.textForm}>Tipo:</Text>
+              <Input
+                size="lg"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            </>
+          )}
+          name="type"
+          defaultValue=""
+        />
+        {errors.type && <Text style={stylesFormNewProduct.textErrorForm}>Tipo es requerido</Text>}
       </View>
       {/* CANTIDAD */}
       <View style={stylesFormNewProduct.inputGroup}>
@@ -141,10 +167,10 @@ const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProduc
               />
             </>
           )}
-          name="cantidad"
+          name="quantity"
           defaultValue=""
         />
-        {errors.cantidad && <Text style={stylesFormNewProduct.textErrorForm}>Cantidad es requerido</Text>}
+        {errors.quantity && <Text style={stylesFormNewProduct.textErrorForm}>Cantidad es requerido</Text>}
       </View>
       {/* GUARDAR */}
       <View>
@@ -153,6 +179,7 @@ const FormNewProduct = ({ dataStringScanner, setShowHideScanner }: FormNewProduc
     </View>
   );
 };
+
 const stylesFormNewProduct = StyleSheet.create({
   containerForm: {
     padding: 25

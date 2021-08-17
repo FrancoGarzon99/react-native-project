@@ -1,11 +1,16 @@
+import { ScrollView } from 'native-base';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import FormContainer from './NewProductoFormContainer/FormContainer';
 
-const NewProduct = () => {
+
+const NewProduct = (props: any) => {
+
   return (
     <View style={stylesNewProduct.container}>
-      <FormContainer />
+      <ScrollView>
+        <FormContainer props={props} />
+      </ScrollView>
     </View>
   );
 };

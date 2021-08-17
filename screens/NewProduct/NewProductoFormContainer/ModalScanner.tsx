@@ -21,15 +21,15 @@ const ModalScanner = ({ ShowHideScanner, setShowHideScanner, setDataStringScanne
         <Modal.CloseButton />
         <Modal.Header>Escanea tu Producto</Modal.Header>
         <Modal.Body>
-          <ScannActiveComponent setDataStringScanner={setDataStringScanner} ShowHideScanner={ShowHideScanner} returnScanned={returnScanned} setReturnScanned={setReturnScanned} />
+          <ScannActiveComponent setShowHideScanner={setShowHideScanner} setDataStringScanner={setDataStringScanner} ShowHideScanner={ShowHideScanner} returnScanned={returnScanned} setReturnScanned={setReturnScanned} />
         </Modal.Body>
         <Modal.Footer>
           <Button.Group space={2}>
-            <Button onPress={() => {
+            {/* <Button onPress={() => {
               setShowHideScanner(!ShowHideScanner);
               setReturnScanned(false);
-            }}>Cancelar</Button>
-            {returnScanned ? <Button onPress={() => setReturnScanned(false)}>Volver a Escanear</Button> : <></>}
+            }}>Cancelar</Button> */}
+            {/* {returnScanned ? <Button onPress={() => setReturnScanned(false)}>Volver a Escanear</Button> : <></>} */}
           </Button.Group>
         </Modal.Footer>
       </Modal.Content>
