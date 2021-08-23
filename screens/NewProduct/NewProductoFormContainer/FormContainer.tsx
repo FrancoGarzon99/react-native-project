@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ModalScanNextProduct from '../ModalNextProduct/ModalScanNextProduct';
 import FormNewProduct from './FormNewProduct';
 import ModalScanner from './ModalScanner';
 

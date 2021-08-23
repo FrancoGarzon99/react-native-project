@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dispatch, SetStateAction } from 'hoist-non-react-statics/node_modules/@types/react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, Modal } from 'native-base';
-import ScannActiveComponent from '../../../components/ScannActiveComponent';
+import ScannActiveComponent from '../../../components/Reusables/ScannerComponent/ScannActiveComponent';
 
 interface ModalScannerProps {
   ShowHideScanner: boolean;
