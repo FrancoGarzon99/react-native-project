@@ -33,20 +33,18 @@ const ScannActiveComponent = ({ ShowHideScanner, returnScanned, setReturnScanned
     toast.show({
       title: "Producto Escaneado!",
       status: "success",
-      description: "¡Completa los siguientes campos!",
       isClosable: false
     });
   };
 
-
   return (
     <View>
       <View style={styles.containerScann}>
-        {ShowHideScanner && hasPermission === true ?
+        {ShowHideScanner && hasPermission === true &&
           <BarCodeScanner
             onBarCodeScanned={returnScanned ? undefined : handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
-          /> : <Text>Necesitamos acceso a tu camara, para escanear los productos</Text>}
+          />}
       </View>
     </View>
   );
