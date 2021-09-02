@@ -11,7 +11,9 @@ interface ModalScannerProps {
 }
 
 const ModalScanner = ({ ShowHideScanner, setShowHideScanner, setDataStringScanner }: ModalScannerProps) => {
+
   const [returnScanned, setReturnScanned] = useState<boolean>(false);
+
   return (
     <Modal isOpen={ShowHideScanner} onClose={() => {
       setShowHideScanner(!ShowHideScanner);
@@ -29,7 +31,7 @@ const ModalScanner = ({ ShowHideScanner, setShowHideScanner, setDataStringScanne
               setShowHideScanner(!ShowHideScanner);
               setReturnScanned(false);
             }}>Cancelar</Button> */}
-            {/* {returnScanned ? <Button onPress={() => setReturnScanned(false)}>Volver a Escanear</Button> : <></>} */}
+            {returnScanned ? <Button onPress={() => setReturnScanned(false)}>Volver a Escanear</Button> : <></>}
           </Button.Group>
         </Modal.Footer>
       </Modal.Content>
@@ -39,4 +41,4 @@ const ModalScanner = ({ ShowHideScanner, setShowHideScanner, setDataStringScanne
 
 export default ModalScanner;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({ });
