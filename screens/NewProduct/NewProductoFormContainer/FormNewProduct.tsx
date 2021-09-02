@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Input } from 'native-base';
 import { Controller, useForm } from "react-hook-form";
-import firebase from '../../../DataBase/Firebase';
+import firebase from '../../../dataBase/Firebase';
 import { Dispatch, SetStateAction } from 'hoist-non-react-statics/node_modules/@types/react';
 
 type FormData = {
