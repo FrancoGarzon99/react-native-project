@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import FormNewProduct from './FormNewProduct';
 import ModalScanner from './ModalScanner';
 
 const FormContainer = (props: any) => {
   const [ShowHideScanner, setShowHideScanner] = useState<boolean>(false);
   const [dataStringScanner, setDataStringScanner] = useState<{ type: string, data: string; } | undefined>(undefined);
-  const [showNotificationModal, setShowNotificationModal] = useState<boolean>(false);
 
   return (
     <View>
@@ -18,4 +17,3 @@ const FormContainer = (props: any) => {
 
 export default FormContainer;
 
-const styles = StyleSheet.create({});
