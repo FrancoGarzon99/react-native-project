@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView, Box, Image, Stack, Heading, Text, Center, View, Spinner } from 'native-base';
-import firebase from '../../DataBase/Firebase';
+import firebase from '../../dataBase/Firebase';
 import ProductCard from '../../components/Reusables/Cards/ProductCard';
 
 
@@ -47,5 +47,5 @@ const ProductList = (props: Props) => {
     </ScrollView>
   );
 };
-const stylesProductsList = StyleSheet.create({});
+const stylesProductsList = StyleSheet.create({ });
 export default ProductList;
